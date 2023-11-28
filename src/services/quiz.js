@@ -276,9 +276,10 @@ async function submitAnswerAsync(roomCode, playerName, answer) {
 }
 
 function start(instance) {
-    if (instance.players.length == 0) {
-        throw new InvalidOperationError('Not enough players yet');
+    if (instance.players.length < 2) {
+        throw new InvalidOperationError('Not enough players yet. At least two players are required.');
     }
+
     instance.questionNumber = 1;
     instance.players.forEach(p => {
         p.answer = undefined;
@@ -287,6 +288,7 @@ function start(instance) {
     });
     instance.status = 'showing-question';
 }
+
 
 function awardPoints(players, correctAnswer) {
     players.forEach(p => {
